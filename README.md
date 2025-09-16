@@ -1,5 +1,3 @@
 Progettazione di memoria a stack (LIFO)
 
-Memberi: <br>
-Edoardo Nicitra <br>
-Ismaele Negri
+Membri: Edoardo Nicitra, Ismaele Negri
