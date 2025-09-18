@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2018.3.1 (64-bit)
+# SW Build 2489853 on Tue Mar 26 04:20:25 MDT 2019
+# IP Build 2486929 on Tue Mar 26 06:44:21 MDT 2019
+# Start of session at: Mon Sep 15 22:45:36 2025
+# Process ID: 11032
+# Current directory: C:/Users/10889322/Adders/Adders.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/10889322/Adders/Adders.sim/sim_1/behav/xsim/xsim.dir/halfAdder_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/10889322/Adders/Adders.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: C:/Users/10889322/Adders/Adders.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/10889322/Adders/Adders.sim/sim_1/behav/xsim/xsim.dir/halfAdder_behav/webtalk/xsim_webtalk.tcl -notrace
