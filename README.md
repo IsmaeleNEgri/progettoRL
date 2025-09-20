@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-N.B <br>La modifica di oggi prevede l'aggiunta di un CSA e del suo testbench 
+N.B <br>Modifica: aggiunta di un file iniziale per definire quello che potrebbero servire e che c'è probabilmente da fare
