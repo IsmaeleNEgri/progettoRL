@@ -1,0 +1,17 @@
+DEFINIZIONE DI QUELLO CHE SERVE PER IL PROGETTO (dato dal disegno di specifica):
+
+-dobbiamo capire innanzitutto quanto può essere grande ogni parola e quanto può o deve essere grande lo stack
+(questi sono se non sbaglio i generic del file base dello stack, ma potrei sbagliarmi)
+
+-secondo il disegno ho 8 segnali, dei quali 6 sono da un bit (std_logic), gli altri sono quelli che riguardano dati in input
+e dati in output (std_vector) (posso usare i generic definiti per questi vettori), e attenzione a quali segnali vanno dentro 
+e quali vanno fuori.
+
+-Altra cosa da fare che conviene pensarci all'inizio sono i registri di input e output come segnato per le specifiche generali
+Saranno due entità distinte (quindi probabile sia meglio due sources distinti), che dovrebbero se non sbaglio prendere 3 input e 
+dare 1 output (clock, reset, dati ingresso) (dati uscita)
+
+-ci serve capire come implementare lo stack pointer (credo convenga usare un numero che va incrementato e decrementato ad ogni 
+push/pop). Qui è dove sta la difficoltà in quanto devo capire, come implementare la logica di accesso ai dati salvati, ed anche 
+fare attenzione alla memoria (o meglio, usando i modi del C e sapendo che ho i vettori potrei fare una specie di array di strighe
+ma con i vettori) (sempre però non ne sono sicuro)     
