@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-N.B <br>Modifica: aggiunta di un file iniziale per definire quello che potrebbero servire e che c'è probabilmente da fare
+<br>Ultima modifica: aggiunto cartella del progetto contente già i due registri in entrata e uscita con tanto di piccolo test. 
