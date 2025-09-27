@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima modifica: aggiunto cartella del progetto contente già i due registri in entrata e uscita con tanto di piccolo test. 
+<br>Ultima modifica: ho reinserito la cartella con i registri perchè andavano fatte alcune correzioni
