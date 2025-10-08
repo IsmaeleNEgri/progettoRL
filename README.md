@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima modifica: ho reinserito la cartella con i registri perchè andavano fatte alcune correzioni
+<br>Ultima modifica: ho messo il ripple carry per lo stack pointer 
