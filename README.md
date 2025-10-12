@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima modifica: ho messo il ripple carry per lo stack pointer 
+<br>Ultima modifica: rst, clear e più di metà comando di push
