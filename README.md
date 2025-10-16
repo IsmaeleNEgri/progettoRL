@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima modifica: rst, clear e più di metà comando di push
+<br>Ultima modifica: sistemato pop e push, forse va sistemato il pop con i segnali isempty e isemptybuffer, fatta la simulazione 
