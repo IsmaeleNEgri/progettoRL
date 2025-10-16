@@ -4,4 +4,4 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima modifica: sistemato pop e push, forse va sistemato il pop con i segnali isempty e isemptybuffer, fatta la simulazione 
+<br>Ultima modifica: sistemato pop, push e simulazione, va visto il DOUT e caso limite che va a verificare lo stack pieno
