@@ -8,3 +8,4 @@ Membri: <br>
                      -aggiunto il reset del dout alla fine del ciclo di clock (non so se necessario)
                      -il rst assegna tutto a prescindere dal ciclo di clock, mentre il clear aspetta il fronte di salita => OK
                      - ho rimesso i generic (si sono scemo, li avevo tolti)
+TODO: test sul modello Post Place & Route. 
