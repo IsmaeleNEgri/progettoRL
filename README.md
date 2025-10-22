@@ -9,3 +9,5 @@ Membri: <br>
                      -il rst assegna tutto a prescindere dal ciclo di clock, mentre il clear aspetta il fronte di salita => OK
                      - ho rimesso i generic (si sono scemo, li avevo tolti)
 TODO: test sul modello Post Place & Route. 
+
+<br>Ultima Modifica (da confermare): ho fatto la shadow memory dopo aver cercato di farle stampare intero fuori e accorgendomi che viene stampata insieme agli altri segnali nella simulazione.
