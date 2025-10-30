@@ -1,3 +1,0 @@
-- Create Project on std directory (%APP_DATA%/Roaming/Xilinx/Vivado).
-- Put IMPORTANT_FILES on the same directory.
-- Run TCL script from Vivado (select Tools -> run tcl script) by selecting "simulations.tcl" in IMPORTANT_FILES.
