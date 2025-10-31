@@ -4,5 +4,5 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima Modifica (da confermare): mancano gli assert (parte MIA, hai capito EDDIE, MIA!!!) e poi magari ricontrollare post place and route
+<br>Ultima Modifica (da confermare): ho aggiunto l'elaborato (introduzione completata)
 <br>P.S possibili domande al professore se me ne ricordo
