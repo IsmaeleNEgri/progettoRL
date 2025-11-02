@@ -1,5 +1,5 @@
 set prjName [get_property NAME [current_project]]
-set impFiles "./IMPORTANT_FILES"
+set impFiles "./$prjName/IMPORTANT_FILES"
 set sourcesRoot "$impFiles/sources_1/new"
 set simRoot "$impFiles/sim_1/new"
 set sims "$prjName/sims"
@@ -77,4 +77,5 @@ puts "-----Simulations completed-----"
 #    open_wave_config "./${mod}_time_impl.wcfg"
 #    puts "type anything to continue the simulations..."
 #    gets stdin answer
+
 #}
