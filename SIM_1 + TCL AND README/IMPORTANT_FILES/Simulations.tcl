@@ -63,7 +63,7 @@ foreach module $modules {
     launch_simulation -mode post-implementation -type timing
     run 3300ns
 }
-add_files -norecurse -scan_for_includes "./IMPORTANT_FILES/simulations.tcl"
+add_files -norecurse -scan_for_includes "./$impFiles/simulations.tcl"
 puts "-----Simulations completed-----"
 
 #set_property top memory [current_fileset]
