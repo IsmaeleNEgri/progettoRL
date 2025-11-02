@@ -126,7 +126,7 @@ architecture Behavioral of memorySim is
 
             -----------------------------
             assert isEmpty = '0';
-                report "value correctly evalueted empty (memSim line 136)"
+                report "value correctly evalueted empty (memSim line 129)"
                 severity note; 
             ----------------------------
             
@@ -135,7 +135,7 @@ architecture Behavioral of memorySim is
 
             ----------------------------
             assert isEmpty = '1';
-                report "value correctly evaluated not empty (memSim line 145)"
+                report "value correctly evaluated not empty (memSim line 138)"
                 severity note;
             -----------------------------
                 
@@ -144,7 +144,7 @@ architecture Behavioral of memorySim is
 
             -----------------------------
             assert popError = '1';
-                report "pop error correctly evaluated (memSim line 154)" 
+                report "pop error correctly evaluated (memSim line 147)" 
                 severity note;
             -----------------------------
                 
@@ -189,7 +189,7 @@ architecture Behavioral of memorySim is
                 if i = 7 then
                 ---------------------------------------------------------------
                     assert isFull = '1';
-                      report "isFull correctly evaluated (memSim line 198)"
+                      report "isFull correctly evaluated (memSim line 192)"
                       severity note;
                 ----------------------------------------------------------------
                 end if;    
@@ -198,6 +198,13 @@ architecture Behavioral of memorySim is
             dIN <= "11111111";
             push <= '1';
             wait for clk_period;
+
+            ------------------------------------------------------------
+            assert pushError = '1';
+                report "pushError correctly evaluated (memSim line 204)"
+                severity note;
+            ------------------------------------------------------------
+                
             push <= '0';
             dIN <= (others => 'U');
             wait for clk_period;
@@ -211,7 +218,7 @@ architecture Behavioral of memorySim is
 
             -------------------------------------------------------
             assert popError = '1';
-                 report "popError correctly evaluated (memSim line 198)"
+                 report "popError correctly evaluated (memSim line 221)"
                  severity note;
 
             report "Fine stim_proc raggiunta"
