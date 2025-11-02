@@ -123,10 +123,31 @@ architecture Behavioral of memorySim is
             dIN <= (others => 'U');
             push <= '0';
             wait for clk_period;
+
+            -----------------------------
+            assert isEmpty = '0';
+                report "value correctly evalueted empty (memSim line 136)"
+                severity note; 
+            ----------------------------
+            
             pop <= '1';
             wait for clk_period;
+
+            ----------------------------
+            assert isEmpty = '1';
+                report "value correctly evaluated not empty (memSim line 145)"
+                severity note;
+            -----------------------------
+                
             pop <= '1';
             wait for clk_period;
+
+            -----------------------------
+            assert popError = '1';
+                report "pop error correctly evaluated (memSim line 154)" 
+                severity note;
+            -----------------------------
+                
             pop <='0';
             wait for clk_period;
         
@@ -164,7 +185,16 @@ architecture Behavioral of memorySim is
                 wait for clk_period;
                 push <= '0';
                 wait for clk_period;
+
+                if i = 7 then
+                ---------------------------------------------------------------
+                    assert isFull = '1';
+                      report "isFull correctly evaluated (memSim line 198)"
+                      severity note;
+                ----------------------------------------------------------------
+                end if;    
             end loop;
+                    
             dIN <= "11111111";
             push <= '1';
             wait for clk_period;
@@ -178,8 +208,16 @@ architecture Behavioral of memorySim is
                 pop <= '0'; 
                 wait for clk_period;
             end loop;
-            
-            
+
+            -------------------------------------------------------
+            assert popError = '1';
+                 report "popError correctly evaluated (memSim line 198)"
+                 severity note;
+
+            report "Fine stim_proc raggiunta"
+                severity note;
+            ------------------------------------------------------
+
             wait;
         end process;
 end Behavioral;
