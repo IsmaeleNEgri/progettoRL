@@ -101,7 +101,7 @@ begin
     end process;
     
     
-    process(clkR)
+    process(clkR,rstR)
     begin 
             
         if(rstR = '1') then
@@ -111,7 +111,6 @@ begin
                 isEmptyBuffer <= '1';
                 popErrorR <= '0';
                 pushErrorR <= '0';
-
         
         --looking if we are on a rising edege of the clock
         elsif rising_edge(clkR) then
@@ -177,7 +176,7 @@ begin
             elsif (pushR = '1' and isFullBuffer = '1') then            --in case of PUSH with full stack 
                 pushErrorR <= '1';
                                      
-            elsif(pushR = '1' and isFullBuffer = '0') then            --PUSH operation  
+            elsif(pushR = '1' and isFullBuffer = '0' and rstR = '0') then            --PUSH operation  
                --after a push it's not empty anymore
                isEmptyBuffer <= '0';
                
