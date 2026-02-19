@@ -1,0 +1,55 @@
+signal next_sp        : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+signal next_isFull    : std_logic;
+signal next_isEmpty   : std_logic;
+signal next_pushError : std_logic;
+signal next_popError  : std_logic;
+
+
+next_sp <= (others => '0') when clear = '1' else
+           spNext           when do_push = '1' else
+           spNext           when do_pop  = '1' else
+           sp;
+
+
+
+next_isEmpty <= '1' when clear = '1' else
+                '0' when do_push = '1' else
+                '1' when (do_pop = '1' and spNext = "000") else
+                isEmptyBuffer;
+
+
+
+next_isFull <= '0' when clear = '1' else
+               '1' when (do_push = '1' and Cout = '1') else
+               '0' when do_pop = '1' else
+               isFullBuffer;
+
+
+
+next_pushError <= '1' when (push = '1' and isFullBuffer = '1') else
+                  '0';
+
+
+
+next_popError <= '1' when (pop = '1' and isEmptyBuffer = '1') else
+                 '0';
+
+
+
+process(clk, rst)
+begin
+    if rst= '1' then
+        sp <= (others => '0');
+        isFullBuffer <= '0';
+        isEmptyBuffer <= '1';
+        pushError <= '0';
+        popError <= '0';
+
+    elsif rising_edge(clk) then
+        sp <= next_sp;
+        isFullBuffer <= next_isFull;
+        isEmptyBuffer <= next_isEmpty;
+        pushError <= next_pushError;
+        popError <= next_popError;
+    end if;
+end process;
