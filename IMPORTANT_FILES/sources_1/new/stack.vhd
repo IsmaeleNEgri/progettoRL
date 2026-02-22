@@ -97,11 +97,11 @@ begin
     process(clk, rst)
     begin
     if(rst = '1') then
-                sp <= (others => '0');
-                isFullBuffer <= '0';
-                isEmptyBuffer <= '1';
-                popError <= '0';
-                pushError <= '0';
+            sp <= (others => '0');
+            isFullBuffer <= '0';
+            isEmptyBuffer <= '1';
+            popError <= '0';
+            pushError <= '0';
 
         elsif rising_edge(clk) then        --looking if we are on a rising edge of the clock
             
@@ -141,7 +141,7 @@ begin
                     isEmptyBuffer <= '1';
                                      
                 end if;
-            end if;   
+            end if;
                     
         end if;
         

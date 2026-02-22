@@ -35,18 +35,9 @@ begin
     
     process(clk, rst)
     begin
-        if(rst = '1') then
-            mSig <= (others => (others => '0'));
-
-        --looking if we are on a rising edge of the clock
-        elsif rising_edge(clk) then
-                        
-            --clear operation 
-            if(clear = '1') then                --same as the rst, but different meaning
-                mSig <= (others => (others => '0'));
-              
-                                     
-            elsif(push = '1') then            --PUSH operation  
+        if rising_edge(clk) then
+                                
+            if(push = '1') then            --PUSH operation  
                --after a push it's not empty anymore
                
                case sp is

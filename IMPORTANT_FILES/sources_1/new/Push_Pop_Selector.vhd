@@ -31,7 +31,7 @@ begin
     
     half_ok <= '1' when (sp = "000" or sp = "001" or sp = "010" or sp = "011")
         else '0';
-    do_push <= '1' when (push = '1' and isFullBuffer = '0') and 
+    do_push_sig <= '1' when (push = '1' and isFullBuffer = '0') and 
         (pop = '0' or half_ok='1')
         else '0';
     do_pop_sig <= '1' when (pop  = '1' and isEmptyBuffer = '0' and do_push_sig = '0') 
