@@ -192,10 +192,10 @@ architecture Behavioral of memorySim is
         -------------------------------------------------------------------------------------
         
         --real testing process, for the memory module
-        uut: entity work.memory
+        uut: entity work.stack
             port map (
-                clkR => clk,
-                rstR => rst,
+                clk => clk,
+                rst => rst,
                 pop => pop,
                 push => push,
                 clear => clear,
