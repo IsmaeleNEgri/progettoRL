@@ -4,5 +4,7 @@ Membri: <br>
 -Edoardo Nicitra <br> 
 -Ismaele Negri
 
-<br>Ultima Modifica : file di versione totalmente sincrona.
-<br>P.S possibili domande al professore se me ne ricordo
+<br>Ultima Modifica : file ottimizzati in moduli per logica hardware-like + tb adeguati (to check)
+<br>P.S possibili domande al professore:
+- reset di msig => others (others <=0)
+- se dout può essere aggiornato in base a cosa c'è sempre sul puntatore dello stack. (parte commentata in fondo a memory)
