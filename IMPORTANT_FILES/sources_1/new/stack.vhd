@@ -39,14 +39,27 @@ architecture Behavioral of stack is
     signal spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);    --result of incrementer_decrementer
     signal Cout : std_logic;    --register of carry out 
     
-    --buffer version of some of the ports, in fact they are flags
-    signal isFullBuffer : std_logic := '0';
+    signal isFullBuffer : std_logic := '0';    --buffer version of some of the ports, in fact they are flags
     signal isEmptyBuffer : std_logic := '1'; 
     signal half_ok : std_logic;
-
-
+    
+    signal sp_sig        : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+    signal isFull_sig    : std_logic;
+    signal isEmpty_sig   : std_logic;
 
 begin
+
+    sp_sig <= (others => '0') when clear = '1' else
+           spNext when (do_push = '1' or do_pop ='1') else
+           sp;
+
+    isEmpty_sig <= '1' when (clear = '1' or (do_pop = '1' and spNext = "000")) else
+           '0' when do_push = '1' else
+           isEmptyBuffer;
+
+    isFull_sig <= '0' when (clear = '1' or do_pop ='1') else
+           '1' when (do_push = '1' and Cout = '1') else
+           isFullBuffer;
 
     incrementer_decrementer : entity work.rippleCarryAdder     --instance of the ripple carry to increment or decrement of 1 the sp
         generic map (
@@ -70,8 +83,8 @@ begin
             clk =>clk,
             rst => rst,
 			clear => clear,
-			pop => pop,
 			push => push,
+			pop => pop,
 			sp => sp,
 			
             din => din,
@@ -83,6 +96,8 @@ begin
         STACK_PTR_DEPTH => STACK_PTR_DEPTH
     )
     port map(
+        clk=>clk,
+        rst => rst,
         push => push,
         pop => pop,
         isFullBuffer => isFullBuffer,
@@ -92,65 +107,38 @@ begin
         do_pop => do_pop,
         B_sum => B_sum
     );
-
+    
+    status_controller : entity work.status_controller
+    port map(
+        clk =>clk,
+        rst => rst,
+        push => push,
+        pop => pop,
+        isFullBuffer => isFullBuffer,
+        isEmptyBuffer => isEmptyBuffer,
+        pushError => pushError,
+        popError => popError
+    );
         
     process(clk, rst)
     begin
     if(rst = '1') then
-            sp <= (others => '0');
-            isFullBuffer <= '0';
-            isEmptyBuffer <= '1';
-            popError <= '0';
-            pushError <= '0';
+    
+        sp <= (others => '0');
+        isFullBuffer <= '0';
+        isEmptyBuffer <= '1';
 
-        elsif rising_edge(clk) then        --looking if we are on a rising edge of the clock
-            
-            popError <= '0';
-            pushError <= '0';
-                        
-            if(clear = '1') then                --same as the rst, but different meaning
-            
-                sp <= (others => '0');
-                isFullBuffer <= '0';
-                isEmptyBuffer <= '1';
-                
------------------------------------------------------------------------------------------------------
-            elsif (push = '1' and isFullBuffer = '1') then            --in case of PUSH with full stack 
-                pushError <= '1';
-                                     
-            elsif(do_push='1') then            --PUSH operation  
-
-               isEmptyBuffer <= '0';               --after a push it's not empty anymore
-               sp <= spNext;               --stack pointer incrementation
-               
-               if(Cout='1') then               --control if max stack
-                    isFullBuffer <= '1';
-               end if;
-             
------------------------------------------------------------------------------------------------------
-            elsif(pop='1' and isEmptyBuffer='1') then            --case if pop and the stack is empty
-                popError<='1';
-                
-            elsif(do_pop='1') then            --POP operation
-            
-                isFullBuffer <= '0';        --after popping, the stack isn't full anymore
-                sp <=spNext;        --stack pointer decrementation
-         
-                if(spNext="000") then                --signaling an empty stack 
-                
-                    isEmptyBuffer <= '1';
-                                     
-                end if;
-            end if;
+    elsif rising_edge(clk) then        --looking if we are on a rising edge of the clock
                     
-        end if;
-        
-        --"passing" signals to their out counter part, by register 
-        isEmpty <= isEmptyBuffer;
-        isFull <= isFullBuffer;
+        sp <= sp_sig;
+        isFullBuffer <= isFull_sig;
+        isEmptyBuffer <= isEmpty_sig;
+                
+    end if;
         
     end process;
     
+    isEmpty <= isEmptyBuffer;    --"passing" signals to their out counter part, by register 
+    isFull <= isFullBuffer;
     
-
 end Behavioral;

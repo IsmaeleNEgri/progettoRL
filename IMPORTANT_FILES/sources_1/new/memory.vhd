@@ -12,9 +12,9 @@ entity memory is
     port(
         clk : in std_logic;
         rst : in std_logic;
-        clear : in std_logic;
-        pop : in  std_logic;     
+        clear : in std_logic;   
         push : in std_logic;
+        pop: in std_logic;
         sp : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
         
         dIN : in std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -52,9 +52,8 @@ begin
                    when others => null;
                end case;
                
-                
             elsif(pop='1') then            --POP operation
-                  
+
                 case sp is
                    when "000" => dOUT <= mSig(0);
                    when "001" => dOUT <= mSig(1);
@@ -70,5 +69,16 @@ begin
                     
         end if;
     end process;
+--    with sp select
+--        dOUT <= mSig(0) when "000",
+--                mSig(1) when "001",
+--                mSig(2) when "010",
+--                mSig(3) when "011",
+--                mSig(4) when "100",
+--                mSig(5) when "101",
+--                mSig(6) when "110",
+--                mSig(7) when "111",
+--                (others => '0') when others;
+
     
 end Behavioral;
