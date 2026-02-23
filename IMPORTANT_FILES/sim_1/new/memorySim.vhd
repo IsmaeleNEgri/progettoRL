@@ -1,3 +1,4 @@
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -275,29 +276,22 @@ architecture Behavioral of memorySim is
             ----------------------------------------------------------------
             
             ----------------------------------------------------------------
-            dIn <= "11010001";    -- push 2 items to check if rst works independently from the rising_edge
+            dIn <= "11010001";    -- push 2 items consecutive to check if rst works independently from the rising_edge
             push <= '1';
             wait for clk_period;
             push <= '0';
-            wait for clk_period;
             dIn <= "00101010";
             push <= '1';
             wait for clk_period;
             push <= '0';
             wait for clk_period;
-            rst <= '1';
+            clear <= '1';        -- since the rst is only at activation of the network, then this part is not needed for rst testing anymore, so switch to clear
             wait for clk_period;
-            rst <= '0';
-            wait for clk_period;
-            rst <= '1';             --reset and push at the same time to check if push gets ignored
-            push <= '1';
-            wait for clk_period;
-            rst <= '0';
-            push <= '0';
+            clear <= '0';
             wait for clk_period;
             ------------------------------------------------------------------
             
-            for i in 0 to STACK_DEPTH-1 loop        --Fill stack completely (isFull should appear as '1') and then we set clear on '1';
+            for i in 0 to STACK_DEPTH-1 loop        --Fill stack completely (isFull should appear as '1') 
                 dIN <= test_values(i);
                 push <= '1';
                 wait for clk_period;
