@@ -2,15 +2,15 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity memorySim is
+entity stackSim is
     generic (
     DATA_WIDTH : integer := 8;     
     STACK_DEPTH : integer := 8;
     STACK_PTR_DEPTH : integer := 3
     );    
-end memorySim;
+end stackSim;
 
-architecture Behavioral of memorySim is
+architecture Behavioral of stackSim is
 
     signal clk : std_logic := '0';
     signal rst : std_logic := '0';
