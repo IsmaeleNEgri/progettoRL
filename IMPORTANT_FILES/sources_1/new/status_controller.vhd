@@ -23,8 +23,10 @@ architecture Behavioral of status_controller is
     
 begin
           
-      pushErr_next <= '1' when (push = '1' and isFullBuffer = '1'and pop = '0') else '0';       
-      popErr_next <= '1' when (pop = '1' and isEmptyBuffer = '1' and push = '0') else '0';                
+      pushErr_next <= '1' when (push = '1' and isFullBuffer = '1'and pop = '0') 
+                          else '0';       
+      popErr_next <= '1' when (pop = '1' and isEmptyBuffer = '1' and push = '0')
+                          else '0';                
       
       process(clk,rst)
       begin 
