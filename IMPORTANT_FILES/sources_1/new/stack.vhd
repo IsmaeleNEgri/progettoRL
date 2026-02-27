@@ -52,8 +52,7 @@ begin
                    '0' when do_push = '1' else
                    isEmptyBuffer;
 
-    isFull_sig <= '0' when clear = '1' else
-              '0' when (do_pop = '1') else
+    isFull_sig <= '0' when (clear = '1' or do_pop = '1') else
               '1' when (sp = "111" or (do_push = '1' and Cout = '1')) else
               isFullBuffer;
 
