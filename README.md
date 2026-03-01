@@ -8,3 +8,4 @@ Membri: <br>
 <br>P.S possibili domande al professore:
 - reset di msig => others (others <=0)
 - se dout può essere aggiornato in base a cosa c'è sempre sul puntatore dello stack. (parte commentata in fondo a memory)
+- clear e rst chiarimento finale
