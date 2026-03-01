@@ -1,0 +1,27 @@
+Time resolution is 1 ps
+Note: Stack not full
+Time: 0 ps  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack empty
+Time: 0 ps  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: popError correctly active
+Time: 100 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack not empty
+Time: 200 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack non vuoto dopo push
+Time: 200 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack empty
+Time: 300 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack not empty
+Time: 400 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack non vuoto dopo push
+Time: 400 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: popError correctly active
+Time: 600 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack not empty
+Time: 900 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack non vuoto dopo push
+Time: 900 ns  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: Stack empty
+Time: 1 us  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
+Note: popError correctly active
+Time: 1 us  Iteration: 1  Process: /stackSim/assert_process  File: C:/Users/ismae/Documents/PROGETTORL/SPARE/MemoriaStack.srcs/sim_1/new/memorySim.vhd
