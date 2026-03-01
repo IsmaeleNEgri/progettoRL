@@ -9,4 +9,4 @@ Membri: <br>
 
 - se dout può essere aggiornato in base a cosa c'è sempre sul puntatore dello stack. (parte commentata in fondo a memory)
 - clear e rst chiarimento finale (reset di msig => others (others <=0) )
--se vuole logica con mux esplicitati come moduli 
+- se vuole logica con mux esplicitati come moduli 
