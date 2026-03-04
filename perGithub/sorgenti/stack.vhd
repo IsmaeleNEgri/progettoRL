@@ -91,7 +91,8 @@ begin
     sp_ctrl : entity work.sp_controller
         generic map(STACK_PTR_DEPTH => STACK_PTR_DEPTH)
         port map(
-
+            clk => clk,
+            rst => rst,
             clear => clear,
             sp_in => sp,
             spNext => spNext,
