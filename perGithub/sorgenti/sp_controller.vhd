@@ -26,7 +26,7 @@ begin
     
     isEmpty <= '1' when (clear = '1' or  (do_pop = '1' and spNext = "000")) else
                '0' when do_push = '1' else
-               '0'
+               '0';
                    
     isFull <= '0' when (clear = '1' or do_pop='1') else
               '1' when (sp_in = "111" or (do_push = '1' and Cout = '1')) else
