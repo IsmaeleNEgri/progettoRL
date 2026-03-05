@@ -24,42 +24,33 @@ entity stack is
     );
 end stack;
 
-
 architecture Behavioral of stack is
 
-    signal sp : std_logic_vector(STACK_PTR_DEPTH-1 downto 0) := (others => '0');
-    signal do_push : std_logic;
-    signal do_pop : std_logic;
+    signal sp, spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+    signal do_push, do_pop : std_logic;
     signal B_sum : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-
-    signal spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal Cout : std_logic;
-
-    signal isFullBuffer : std_logic := '0';
-    signal isEmptyBuffer : std_logic := '1';
-
-    signal sp_sig : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-    signal isFull_sig : std_logic;
-    signal isEmpty_sig : std_logic;
+    signal isFullBuffer, isEmptyBuffer : std_logic;
 
 begin
 
-    sp_sig <= (others => '0') when clear = '1' else
-              spNext when (push = '1' or pop = '1') else
-              sp;
-
-    isEmpty_sig <= '1' when (clear = '1' or (do_pop = '1' and spNext = "000")) else
-                   '0' when do_push = '1' else
-                   isEmptyBuffer;
-
-    isFull_sig <= '0' when (clear = '1' or do_pop = '1') else
-              '1' when (sp = "111" or (do_push = '1' and Cout = '1')) else
-              isFullBuffer;
+    selector_unit : entity work.Push_Pop_Selector
+        generic map(STACK_PTR_DEPTH => STACK_PTR_DEPTH)
+        port map(
+            clk => clk,
+            rst => rst,
+            push => push,
+            pop => pop,
+            isFullBuffer => isFullBuffer,
+            isEmptyBuffer => isEmptyBuffer,
+            sp => sp,
+            do_push => do_push,
+            do_pop => do_pop,
+            B_sum => B_sum
+        );
 
     incrementer_decrementer : entity work.rippleCarryAdder
-        generic map (
-            STACK_PTR_DEPTHR => STACK_PTR_DEPTH
-        )
+        generic map(STACK_PTR_DEPTHR => STACK_PTR_DEPTH)
         port map(
             A => sp,
             B => B_sum,
@@ -85,29 +76,16 @@ begin
             dout => dout
         );
 
-
-    selector_unit : entity work.Push_Pop_Selector
-        generic map(
-            STACK_PTR_DEPTH => STACK_PTR_DEPTH
-        )
-        port map(
-            clk => clk,
-            rst => rst,
-            push => push,
-            pop => pop,
-            isFullBuffer => isFullBuffer,
-            isEmptyBuffer => isEmptyBuffer,
-            sp => sp,
-            do_push => do_push,
-            do_pop => do_pop,
-            B_sum => B_sum
-        );
-
-
     status_controller : entity work.status_controller
         port map(
             clk => clk,
             rst => rst,
+            sp => sp,
+            Cout => Cout,
+            spNext => spNext,
+            do_push => do_push,
+            do_pop => do_pop,
+            clear => clear,
             push => push,
             pop => pop,
             isFullBuffer => isFullBuffer,
@@ -116,21 +94,17 @@ begin
             popError => popError
         );
 
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            sp <= (others => '0');
-            isFullBuffer <= '0';
-            isEmptyBuffer <= '1';
-
-        elsif rising_edge(clk) then
-            sp <= sp_sig;
-            isFullBuffer <= isFull_sig;
-            isEmptyBuffer <= isEmpty_sig;
-        end if;
-    end process;
-
-    isEmpty <= isEmptyBuffer;
-    isFull <= isFullBuffer;
+    sp_ctrl : entity work.sp_controller
+        generic map(
+        STACK_PTR_DEPTH => STACK_PTR_DEPTH
+        )
+        port map(
+            clk => clk,
+            rst => rst,
+            clear => clear,
+            spNext => spNext,
+            Cout => Cout,
+            sp => sp
+        );
 
 end Behavioral;

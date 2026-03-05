@@ -26,8 +26,8 @@ end memory;
 architecture Behavioral of memory is
 
     --this is the crucial part of the project : the "register-array"
-    --Still here we only define the memory, the access and logic behind it will be in the main module (i think)
     --the following line states : mStack is a type representing an array of lenght = 8 and each element in it is long 8 bit
+    
     type mStack is array (0 to STACK_DEPTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
     signal mSig : mStack := (others => (others => '0'));
 
@@ -37,8 +37,7 @@ begin
     begin
         if rising_edge(clk) then
                                 
-            if(push = '1') then            --PUSH operation  
-               --after a push it's not empty anymore
+            if(push = '1') then
                
                case sp is
                    when "000" => mSig(0) <= dIN;
@@ -52,7 +51,7 @@ begin
                    when others => null;
                end case;
                
-            elsif(pop='1') then            --POP operation
+            elsif(pop='1') then
 
                 case sp is
                    when "000" => dOUT <= mSig(0);
@@ -69,16 +68,5 @@ begin
                     
         end if;
     end process;
---    with sp select
---        dOUT <= mSig(0) when "000",
---                mSig(1) when "001",
---                mSig(2) when "010",
---                mSig(3) when "011",
---                mSig(4) when "100",
---                mSig(5) when "101",
---                mSig(6) when "110",
---                mSig(7) when "111",
---                (others => '0') when others;
-
     
 end Behavioral;
