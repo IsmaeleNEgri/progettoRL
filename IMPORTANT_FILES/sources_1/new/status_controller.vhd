@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity status_controller is
     generic(
-        STACK_PTR_DEPTH : integer := 3
+        STACK_PTR_DEPTH : integer := 3 
     );
     Port(
         clk : in std_logic;
@@ -31,20 +31,22 @@ architecture Behavioral of status_controller is
     
     signal pushErr_next : std_logic;
     signal popErr_next : std_logic;
-    signal isFull_reg : std_logic :='0';
-    signal isEmpty_reg : std_logic :='1';
+    signal isEmptyBuffer_reg : std_logic := '1';
+    signal isFullBuffer_reg  : std_logic := '0';
 begin
           
-      pushErr_next <= '1' when (push = '1' and isFull_reg = '1'and pop = '0') 
+      pushErr_next <= '1' when (push = '1' and isFullBuffer_reg = '1' and pop = '0') 
                           else '0';       
-      popErr_next <= '1' when (pop = '1' and isEmpty_reg = '1' and push = '0')
+      popErr_next <= '1' when (pop = '1' and isEmptyBuffer_reg = '1' and push = '0')
                           else '0';  
-      isEmptyBuffer <= '1' when (clear = '1' or  (do_pop = '1' and spNext = "000")) else
-               '0' when do_push = '1' else
-               isEmpty_reg;
-      isFullBuffer <= '0' when (clear = '1' or do_pop='1') else
-              '1' when (sp = "111" or (do_push = '1' and Cout = '1')) else
-              isFull_reg; 
+      isEmptyBuffer_reg <= '1' when (clear = '1' or (do_pop = '1' and spNext = "000")) else
+                     '0' when do_push = '1';
+
+      isFullBuffer_reg <= '0' when (clear = '1' or do_pop='1') else
+                     '1' when (sp = "111" or (do_push = '1' and Cout = '1'));
+              
+      isEmptyBuffer <= isEmptyBuffer_reg;
+      isFullBuffer  <= isFullBuffer_reg;
       
       process(clk,rst)
       begin 
@@ -57,10 +59,8 @@ begin
         elsif rising_edge(clk) then
             pushError <= pushErr_next;
             popError <= popErr_next;
-            isEmpty <= isEmpty_reg;
-            isFull <= isFull_reg;
-            isEmptyBuffer <= isEmpty_reg;
-            isFullBuffer <= isFull_reg;
+            isEmpty <= isEmptyBuffer_reg;
+            isFull <= isFullBuffer_reg;
         end if;
       end process;
       

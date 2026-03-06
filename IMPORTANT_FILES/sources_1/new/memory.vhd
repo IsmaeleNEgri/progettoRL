@@ -12,11 +12,12 @@ entity memory is
     port(
         clk : in std_logic;
         rst : in std_logic;
-        clear : in std_logic;   
-        push : in std_logic;
-        pop: in std_logic;
-        sp : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
         
+        clear : in std_logic;   
+        do_push : in std_logic;
+        do_pop: in std_logic;
+        sp : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+
         dIN : in std_logic_vector(DATA_WIDTH-1 downto 0);
         dOUT : out std_logic_vector(DATA_WIDTH-1 downto 0)
         );
@@ -37,7 +38,7 @@ begin
     begin
         if rising_edge(clk) then
                                 
-            if(push = '1') then
+            if(do_push = '1') then
                
                case sp is
                    when "000" => mSig(0) <= dIN;
@@ -51,7 +52,7 @@ begin
                    when others => null;
                end case;
                
-            elsif(pop='1') then
+            elsif(do_pop='1') then
 
                 case sp is
                    when "000" => dOUT <= mSig(0);

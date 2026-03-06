@@ -7,7 +7,7 @@ entity stack is
         STACK_DEPTH : integer := 8;
         STACK_PTR_DEPTH : integer := 3
     );
-    port(
+    port( 
         clk : in std_logic;
         rst : in std_logic;
         pop : in  std_logic;
@@ -20,17 +20,19 @@ entity stack is
         pushError : out std_logic;
         popError : out std_logic;
         isEmpty : out std_logic;
-        isFull : out std_logic
+        isFull : out std_logic;
+        sp_debug: out std_logic_vector(STACK_PTR_DEPTH-1 downto 0)
     );
 end stack;
 
 architecture Behavioral of stack is
 
-    signal sp, spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+    signal sp,spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal do_push, do_pop : std_logic;
     signal B_sum : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal Cout : std_logic;
-    signal isFullBuffer, isEmptyBuffer : std_logic;
+    signal isFullBuffer: std_logic :='0';
+    signal isEmptyBuffer: std_logic := '1';
 
 begin
 
@@ -68,10 +70,12 @@ begin
         port map(
             clk => clk,
             rst => rst,
+            
             clear => clear,
-            push => do_push,
-            pop => do_pop,
+            do_push => do_push,
+            do_pop => do_pop,
             sp => sp,
+            
             din => din,
             dout => dout
         );
@@ -80,6 +84,7 @@ begin
         port map(
             clk => clk,
             rst => rst,
+            
             sp => sp,
             Cout => Cout,
             spNext => spNext,
@@ -90,8 +95,11 @@ begin
             pop => pop,
             isFullBuffer => isFullBuffer,
             isEmptyBuffer => isEmptyBuffer,
+            
             pushError => pushError,
-            popError => popError
+            popError => popError,
+            isEmpty => isEmpty,
+            isFull => isFull
         );
 
     sp_ctrl : entity work.sp_controller
@@ -101,10 +109,13 @@ begin
         port map(
             clk => clk,
             rst => rst,
+            
             clear => clear,
             spNext => spNext,
             Cout => Cout,
             sp => sp
         );
+        
+        sp_debug <= sp;
 
 end Behavioral;

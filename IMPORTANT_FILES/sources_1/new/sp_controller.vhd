@@ -11,8 +11,8 @@ entity sp_controller is
         
         clear   : in  std_logic;
         spNext  : in  std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-        Cout    : in  std_logic;
-        sp  : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0)
+        Cout    : in  std_logic; 
+        sp      : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0)
     );
 end sp_controller;
 

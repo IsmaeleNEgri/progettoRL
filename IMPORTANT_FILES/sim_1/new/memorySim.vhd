@@ -19,6 +19,7 @@ architecture Behavioral of stackSim is
     signal clear : std_logic := '0';
     signal dIN : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => 'U');
     signal dOUT : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal sp_debug : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal pushError : std_logic;
     signal popError : std_logic;
     signal isEmpty : std_logic;
@@ -195,13 +196,14 @@ architecture Behavioral of stackSim is
         --real testing process, for the memory module
         uut: entity work.stack
             port map (
-                clk => clk,
+                clk => clk, 
                 rst => rst,
                 pop => pop,
                 push => push,
                 clear => clear,
                 dIN => dIN,
                 dOUT => dOUT,
+                sp_debug => sp_debug,
                 pushError => pushError,
                 popError => popError,
                 isEmpty => isEmpty,

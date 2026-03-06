@@ -40,7 +40,7 @@ begin
 
     B_sum <= "001" when do_push_sig = '1' else
              "111" when do_pop_sig  = '1' else
-             (others => '0');
+             (others => '0'); 
 
     process(clk, rst)
     begin
