@@ -29,12 +29,10 @@ begin
     half_ok <= '1' when sp < "100" else '0';
 
     -- Caso push e pop simultanei + pop o push solitari
-    do_push_sig <= '1' when push='1'and ((pop='1' and half_ok='1' and isFullBuffer='0') or
-                                         (pop='0' and isFullBuffer='0'))
+    do_push_sig <= '1' when push='1' and isFullBuffer='0'and ((pop='1' and half_ok='1') or pop='0')
                        else '0';
 
-    do_pop_sig <= '1' when pop='1' and ((push='1' and half_ok='0' and isEmptyBuffer='0') or
-                                        (push='0' and isEmptyBuffer='0'))
+    do_pop_sig <= '1' when pop='1' and isEmptyBuffer='0' and ((push='1' and half_ok='0') or push='0')
                        else '0';
 
     process(clk, rst)

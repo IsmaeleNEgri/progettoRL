@@ -29,6 +29,7 @@ begin
               (spNext) when (do_pop='1' or do_push ='1') else
               sp;
               
+              
     B_sum <= "001" when do_push = '1' else
              "111" when do_pop  = '1' else
              "000";

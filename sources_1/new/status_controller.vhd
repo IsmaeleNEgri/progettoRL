@@ -9,7 +9,6 @@ entity status_controller is
         clk : in std_logic;
         rst : in std_logic;
         
-        sp : in std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
         clear : in std_logic;
         push : in std_logic;
         pop : in std_logic;

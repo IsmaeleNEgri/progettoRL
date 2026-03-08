@@ -93,7 +93,6 @@ begin
             clk => clk,
             rst => rst,
             
-            sp => sp,
             spNext => spNext,
             do_push => do_push,
             do_pop => do_pop,
