@@ -41,7 +41,7 @@ begin
                      '0' when do_push = '1';
 
       isFullBuffer<= '0' when (clear = '1' or do_pop='1') else
-                     '1' when (sp = "111" or (do_push = '1' and Cout = '1'));
+                     '1' when (spNext = "111" or (do_push = '1' and Cout = '1'));
       
       
              
