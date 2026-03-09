@@ -36,7 +36,7 @@ begin
                           else '0';       
       popErr_next <= '1' when (pop = '1' and isEmptyBuffer = '1' and push = '0')
                           else '0';  
-      isEmptyBuffer <= '1' when (clear = '1' or rst='1' or (do_pop = '1' and spNext = "000")) else
+      isEmptyBuffer <= '1' when (clear = '1' or rst='1' or (do_pop = '1' and spNext = "000" )) else
                      '0' when do_push = '1';
 
       isFullBuffer<= '0' when (clear = '1' or do_pop='1') else

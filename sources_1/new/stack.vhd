@@ -26,6 +26,7 @@ entity stack is
         do_pop_debug : out std_logic;
         mSig_debug     : out std_logic_vector(DATA_WIDTH*STACK_DEPTH-1 downto 0);
         Cout_debug: out std_logic;
+        isFullBuffer: buffer std_logic;
         B_sum_debug : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0)
         
     );
@@ -36,7 +37,6 @@ architecture Behavioral of stack is
     signal sp,spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal do_push, do_pop, Cout : std_logic;
     signal B_sum : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-    signal isFullBuffer: std_logic :='0';
     signal isEmptyBuffer: std_logic := '1';
 
 begin
@@ -52,6 +52,7 @@ begin
             isFullBuffer => isFullBuffer,
             isEmptyBuffer => isEmptyBuffer,
             sp => sp,
+            spNext => spNext,
             
             do_push => do_push,
             do_pop => do_pop
