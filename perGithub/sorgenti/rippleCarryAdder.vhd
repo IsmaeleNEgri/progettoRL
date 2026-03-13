@@ -3,7 +3,7 @@ use IEEE.std_logic_1164.all;
 
 entity rippleCarryAdder is
   generic (
-      STACK_PTR_DEPTHR : integer := 3
+      STACK_PTR_DEPTHR : integer := 4
   );
   port (
     A    : in  std_logic_vector(STACK_PTR_DEPTHR-1 downto 0);
