@@ -28,44 +28,66 @@ entity status_controller is
                 
 end status_controller;
 
-architecture Behavioral of status_controller is
-    
+architecture Structural of status_controller is
+
+    signal isFull_next  : std_logic;
+    signal isEmpty_next : std_logic;
     signal pushErr_next : std_logic;
-    signal popErr_next : std_logic;
-    signal isFull_next: std_logic;
-    signal isEmpty_next: std_logic;
-    
+    signal popErr_next  : std_logic;
+
 begin
-          
-      pushErr_next <= '1' when (push_to_confirm ='1' and isFullBuffer = '1') 
-                          else '0';       
-      popErr_next <= '1' when (pop_to_confirm = '1' and isEmptyBuffer = '1')
-                         else '0';
-      isEmpty_next <= '1' when (clear = '1' or rst = '1') 
-                            or (isEmptyBuffer = '1' and do_push = '0') 
-                            or (do_pop = '1' and spNext = "000") 
-                          else '0';
-      isFull_next <= '0' when (clear = '1' or rst = '1') else
-                     '1' when (isFullBuffer = '1' and do_pop = '0') or (do_push = '1' and Cout = '1')
-                         else '0';
-      
-             
-      process(clk,rst)
-      begin 
-        if(rst  = '1') then
-            pushError <= '0';
-            popError <= '0';
-            isEmpty <= '1';
-            isFull <='0'; 
-            
-        elsif rising_edge(clk) then
-            isFullBuffer <= isFull_next;
-            isEmptyBuffer <= isEmpty_next;
-            isEmpty <= isEmptyBuffer;   ----------------------------TOCHECK
-            isFull <= isFullBuffer;     ----------------------------TOCHECK
-            pushError <= pushErr_next;
-            popError <= popErr_next;
-        end if;
-      end process;
-      
-end Behavioral;
+
+    pushError_next : entity work.error_calc
+      port map(
+        push_or_pop => push_to_confirm,
+        isEmpty_or_isFull => isFullBuffer,
+        corrispective_out => pushErr_next
+      );
+
+    popError_next : entity work.error_calc
+      port map(
+        push_or_pop => pop_to_confirm,
+        isEmpty_or_isFull => isEmptyBuffer,
+        corrispective_out => popErr_next
+      );
+
+    empty_calc : entity work.isEmpty_next_calc
+        generic map(STACK_PTR_DEPTH => STACK_PTR_DEPTH)
+        port map(
+            clear => clear,
+            rst => rst,
+            isEmptyBuffer => isEmptyBuffer,
+            do_push => do_push,
+            do_pop => do_pop,
+            spNext => spNext,
+            next_state => isEmpty_next
+        );
+
+    full_calc : entity work.isFull_next_calc
+        port map(
+            clear => clear,
+            rst => rst,
+            isFullBuffer => isFullBuffer,
+            do_push => do_push,
+            do_pop => do_pop,
+            Cout => Cout,
+            next_state => isFull_next
+        );
+
+    assign_output : entity work.assigner
+      port map(
+        isEmptyBuffer => isEmptyBuffer,
+        isFullBuffer  => isFullBuffer,
+        rst => rst,
+        clk => clk,
+        pushErr_next => pushErr_next,
+        popErr_next  => popErr_next,
+        isFull_next  => isFull_next,
+        isEmpty_next => isEmpty_next,
+        pushError => pushError,
+        popError  => popError,
+        isEmpty   => isEmpty,
+        isFull    => isFull
+      );
+
+end Structural;

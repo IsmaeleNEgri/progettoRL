@@ -9,8 +9,8 @@ entity rippleCarryAdder is
     A    : in  std_logic_vector(STACK_PTR_DEPTHR-1 downto 0);
     B    : in  std_logic_vector(STACK_PTR_DEPTHR-1 downto 0);
     Cin  : in  std_logic;
-    --ras stand for ripple adder sum
-    ras  : out std_logic_vector(STACK_PTR_DEPTHR-1 downto 0);
+
+    ras  : out std_logic_vector(STACK_PTR_DEPTHR-1 downto 0);    --ras stand for ripple adder sum
     Cout : out std_logic
   );
 end entity rippleCarryAdder;

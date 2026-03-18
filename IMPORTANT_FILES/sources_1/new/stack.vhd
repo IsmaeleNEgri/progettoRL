@@ -31,8 +31,7 @@ architecture Behavioral of stack is
     signal do_push, do_pop, Cout : std_logic;
     signal B_sum : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal half_ok, push_to_confirm, pop_to_confirm: std_logic;
-    signal isFullBuffer: std_logic;
-    signal isEmptyBuffer: std_logic :='1';
+    signal isFullBuffer, isEmptyBuffer: std_logic;
     
 
 begin
@@ -46,18 +45,18 @@ begin
             clear => clear,
             push => push,
             pop => pop,
-            do_push => do_push,
-            do_pop => do_pop,
+            isFullBuffer => isFullBuffer,
+            isEmptyBuffer => isEmptyBuffer,
+            
             sp => sp, 
             spNext => spNext,
             B_sum => B_sum,
             Cout => Cout,
-            
-            isFullBuffer => isFullBuffer,
-            isEmptyBuffer => isEmptyBuffer,
-            half_ok=> half_ok,
+            do_push => do_push,
+            do_pop => do_pop,
             push_to_confirm => push_to_confirm,
-            pop_to_confirm => pop_to_confirm
+            pop_to_confirm => pop_to_confirm,
+            half_ok=> half_ok
             
         );
 
@@ -103,7 +102,5 @@ begin
             isEmpty => isEmpty,
             isFull => isFull
         );
-
     
-
 end Behavioral;
