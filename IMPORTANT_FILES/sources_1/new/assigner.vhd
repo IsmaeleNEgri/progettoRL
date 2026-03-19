@@ -36,8 +36,8 @@ begin
         elsif rising_edge(clk) then
             isFullBuffer  <= isFull_next;
             isEmptyBuffer <= isEmpty_next;
-            isFull        <= isFullBuffer;
-            isEmpty       <= isEmptyBuffer;
+            isFull        <= isFull_next;
+            isEmpty       <= isEmpty_next;
 
             pushError     <= pushErr_next;
             popError      <= popErr_next;
