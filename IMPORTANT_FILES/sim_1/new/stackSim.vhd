@@ -135,20 +135,49 @@ architecture Behavioral of stackSim is
             ----------------------------------------------------------------
             
             ----------------------------------------------------------------
-            dIn <= "11010001";    -- push 2 items consecutive to check if rst works independently from the rising_edge
+            dIn <= "11010001";    -- push 2 items consecutive to check if push works independently from the rising_edge
             push <= '1';
             wait for clk_period;
-            push <= '0';
             dIn <= "00101010";
             push <= '1';
             wait for clk_period;
             push <= '0';
             wait for clk_period;
-            clear <= '1';        -- since the rst is only at activation of the network, then this part is not needed for rst testing anymore, so switch to clear
+            pop<= '1';
             wait for clk_period;
-            clear <= '0';
+            pop<= '1';
             wait for clk_period;
-            ------------------------------------------------------------------
+            pop <='0';
+            wait for clk_period;
+            ----------------------------------------------------------------            
+            
+            ----------------------------------------------------------------
+            
+            push <= '1';            --we want to test push/pop simultaneously until we reach sp >"011"
+            pop <='1';
+            dIN<="11111111";
+            wait for clk_period;
+            dIN<="11111110";
+            wait for clk_period;
+            dIN<="11111101";
+            wait for clk_period;
+            dIN<="11111100";
+            wait for clk_period;
+            dIN<="11111011";            --here it should choose pop
+            wait for clk_period;
+            push <='0';
+            pop<= '0';
+            wait for clk_period;
+            for i in 0 to 3 loop        --let's see if the push worked for the other addresses too
+                pop <= '1';
+                wait for clk_period;
+                pop<= '0';
+                wait for clk_period;
+            end loop;
+            
+            ----------------------------------------------------------------
+
+            ----------------------------------------------------------------
             
             for i in 0 to STACK_DEPTH-1 loop        --Fill stack completely (isFull should appear as '1')
                 dIN <= test_values(i);

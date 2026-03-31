@@ -12,8 +12,8 @@ entity Push_Pop_Selector is
         clear : in std_logic;
         push : in std_logic;
         pop : in std_logic;
-        isFullBuffer : in std_logic;
-        isEmptyBuffer : in std_logic;
+        isFullBuffer : buffer std_logic;
+        isEmptyBuffer : buffer std_logic;
 
         sp : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
         spNext : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
@@ -29,6 +29,7 @@ end Push_Pop_Selector;
 architecture Structural of Push_Pop_Selector is
 
     signal half_ok_s : std_logic;
+    signal half_ok_inv_s : std_logic;
     signal push_to_conf_s : std_logic;
     signal pop_to_conf_s : std_logic;
     signal do_push_s : std_logic;
@@ -41,43 +42,44 @@ architecture Structural of Push_Pop_Selector is
 
 begin
 
+    half_ok_inv_s <= not half_ok_s;
+
     half_ok_block : entity work.half_ok_calc
-        generic map(STACK_PTR_DEPTH => STACK_PTR_DEPTH)
         port map(
-            sp => sp_s,
+            sp2 => sp_s(2),
             half_ok => half_ok_s
         );
 
-    push_conf_block : entity work.push_to_conf_calc
+    push_conf_block : entity work.push_pop_to_conf_calc
         port map(
-            push => push,
-            pop => pop,
+            a => push,
+            b => pop,
             half_ok => half_ok_s,
-            push_to_conf => push_to_conf_s
+            c => push_to_conf_s
         );
 
-    pop_conf_block : entity work.pop_to_conf_calc
+    pop_conf_block : entity work.push_pop_to_conf_calc
         port map(
-            push => push,
-            pop => pop,
-            half_ok => half_ok_s,
-            pop_to_conf => pop_to_conf_s
+            a => pop,
+            b => push,
+            half_ok => half_ok_inv_s,
+            c => pop_to_conf_s
         );
 
-    do_push_block : entity work.do_push_calc
+    do_push_block : entity work.do_push_pop_calc
         port map(
             rst => rst,
-            push_to_conf => push_to_conf_s,
-            isFullBuffer => isFullBuffer,
-            do_push => do_push_s
+            a => push_to_conf_s,
+            b => isFullBuffer,
+            c => do_push_s
         );
 
-    do_pop_block : entity work.do_pop_calc
+    do_pop_block : entity work.do_push_pop_calc
         port map(
             rst => rst,
-            pop_to_conf => pop_to_conf_s,
-            isEmptyBuffer => isEmptyBuffer,
-            do_pop => do_pop_s
+            a => pop_to_conf_s,
+            b => isEmptyBuffer,
+            c => do_pop_s
         );
 
     sp_controller : entity work.sp_controller

@@ -12,7 +12,7 @@ entity sp_controller is
         do_pop : in std_logic;
         do_push : in std_logic;
         clear : in std_logic;
-        isFullBuffer : in std_logic;
+        isFullBuffer : buffer std_logic;
 
         sp : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
         spNext : out std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
@@ -24,9 +24,9 @@ end sp_controller;
 architecture Structural of sp_controller is
 
     signal sp_s : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-    signal spNext_s  : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
-    signal Cout_s    : std_logic;
-    signal Bsum_s   : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+    signal spNext_s : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+    signal Cout_s : std_logic;
+    signal Bsum_s : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal sp_out_s : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
 
 begin

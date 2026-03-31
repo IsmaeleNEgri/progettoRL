@@ -25,6 +25,7 @@ begin
     process(clk, rst)
     begin
         if rst = '1' then
+        
             isFullBuffer <= '0';
             isEmptyBuffer <= '1';
             isEmpty <= '1';

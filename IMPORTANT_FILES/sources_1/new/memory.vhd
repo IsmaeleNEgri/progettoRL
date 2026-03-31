@@ -8,15 +8,16 @@ entity memory is
         STACK_PTR_DEPTH: integer := 3
     );
     port(
-        clk   : in  std_logic;
+        clk : in  std_logic;
+        rst: in std_logic;
 
         do_push : in  std_logic;
-        do_pop  : in  std_logic;
-        sp      : in  std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
+        do_pop : in  std_logic;
+        sp : in  std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
 
-        dIN  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+        dIN : in  std_logic_vector(DATA_WIDTH-1 downto 0);
         dOUT : out std_logic_vector(DATA_WIDTH-1 downto 0);
-        isFullBuffer : in std_logic
+        isFullBuffer : buffer std_logic
 
     );
 end memory;
@@ -28,7 +29,7 @@ architecture Behavioral of memory is
 
 begin
 
-    process(clk)
+    process(clk,rst)
     begin
         if rising_edge(clk) then
 

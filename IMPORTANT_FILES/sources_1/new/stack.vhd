@@ -10,11 +10,11 @@ entity stack is
     port( 
         clk : in std_logic;
         rst : in std_logic;
-        POP : in  std_logic;
-        PUSH : in std_logic;
-        CLEAR : in std_logic;
+        pop : in  std_logic;
+        push : in std_logic;
+        clear : in std_logic;
 
-        DIN : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        dIN : in std_logic_vector(DATA_WIDTH-1 downto 0);
         dOUT : out std_logic_vector(DATA_WIDTH-1 downto 0);
 
         pushError : out std_logic;
@@ -26,22 +26,23 @@ entity stack is
 end stack;
 
 architecture Behavioral of stack is
-    
-    signal pop_s : std_logic;
-    signal push_s : std_logic;
-    signal clear_s : std_logic;
-    signal dIN_s : std_logic_vector(DATA_WIDTH-1 downto 0);
-    
-    
+
     signal sp,spNext : std_logic_vector(STACK_PTR_DEPTH-1 downto 0);
     signal do_push, do_pop, Cout : std_logic;
     signal push_to_confirm, pop_to_confirm: std_logic;
     signal isFullBuffer, isEmptyBuffer: std_logic;
     
+    signal pop_s : std_logic;
+    signal push_s : std_logic;
+    signal clear_s : std_logic;
+    signal dIN_s : std_logic_vector(DATA_WIDTH-1 downto 0);
 
 begin
-    
-    sync_in : entity work.syncer
+
+    input_assigner : entity work.input_assigner
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
     port map(
         clk => clk,
         rst => rst,
@@ -55,7 +56,7 @@ begin
         din_s => dIN_s,
         clear_s => clear_s
     );
-    
+
     Push_Pop_Selector : entity work.Push_Pop_Selector
         generic map(STACK_PTR_DEPTH => STACK_PTR_DEPTH)
         port map(
@@ -74,10 +75,9 @@ begin
             do_push => do_push,
             do_pop => do_pop,
             push_to_confirm => push_to_confirm,
-            pop_to_confirm => pop_to_confirm           
+            pop_to_confirm => pop_to_confirm
+            
         );
-
-    
 
     memory_unit: entity work.memory
         generic map(
@@ -87,6 +87,7 @@ begin
         )
         port map(
             clk => clk,
+            rst => rst,
             
             do_push => do_push,
             do_pop => do_pop,

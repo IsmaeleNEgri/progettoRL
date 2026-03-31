@@ -30,25 +30,25 @@ end status_controller;
 
 architecture Structural of status_controller is
 
-    signal isFull_next  : std_logic;
+    signal isFull_next : std_logic;
     signal isEmpty_next : std_logic;
     signal pushErr_next : std_logic;
-    signal popErr_next  : std_logic;
+    signal popErr_next : std_logic;
 
 begin
 
     pushError_calc_block : entity work.error_calc
       port map(
-        push_or_pop => push_to_confirm,
-        isEmpty_or_isFull => isFullBuffer,
-        corrispective_out => pushErr_next
+        a => push_to_confirm,
+        b => isFullBuffer,
+        c => pushErr_next
       );
 
     popError_calc_block : entity work.error_calc
       port map(
-        push_or_pop => pop_to_confirm,
-        isEmpty_or_isFull => isEmptyBuffer,
-        corrispective_out => popErr_next
+        a => pop_to_confirm,
+        b => isEmptyBuffer,
+        c => popErr_next
       );
 
     isEmpty_calc_block : entity work.isEmpty_next_calc
@@ -67,6 +67,7 @@ begin
         port map(
             clear => clear,
             rst => rst,
+            
             isFullBuffer => isFullBuffer,
             do_push => do_push,
             do_pop => do_pop,
@@ -78,12 +79,14 @@ begin
       port map(
         rst => rst,
         clk => clk,
+        
         isEmptyBuffer => isEmptyBuffer,
         isFullBuffer => isFullBuffer,
         pushErr_next => pushErr_next,
         popErr_next => popErr_next,
         isFull_next => isFull_next,
         isEmpty_next => isEmpty_next,
+        
         pushError => pushError,
         popError => popError,
         isEmpty => isEmpty,
