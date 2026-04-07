@@ -225,6 +225,18 @@ architecture Behavioral of stackSim is
                 pop <= '0'; 
                 wait for clk_period;
             end loop;
+            
+            push <= '1';        --testing clear with pop, clear and push all set to '1'
+            wait for clk_period;
+            push <='0';
+            wait for clk_period;
+            push <= '1';
+            pop <= '1';
+            clear <= '1';
+            wait for clk_period;
+            push <= '0';
+            pop <= '0';
+            clear <= '0';
 
 
             wait;
